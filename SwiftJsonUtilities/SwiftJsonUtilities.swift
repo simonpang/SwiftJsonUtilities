@@ -95,15 +95,6 @@ class JsonUtilities {
             return value as? Bool
         }
         
-        func url(key: String) -> NSURL? {
-            if let value : AnyObject? = asDict()?[key]{
-                if let stringValue = value as? String {
-                    return NSURL(string: stringValue)
-                }
-            }
-            return nil
-        }
-        
     }
     
     
@@ -126,4 +117,15 @@ class JsonUtilities {
         handler(Parser(json))
     }
 
+}
+
+// Define your own custom parsing methods.
+
+extension JsonUtilities.Parser {
+    func url(key: String) -> NSURL? {
+        if let urlString = string(key) {
+            return NSURL(string: urlString)
+        }
+        return nil
+    }
 }
