@@ -14,7 +14,7 @@ Add SwiftJsonUtilities.swift to your project.
 ### Example
 
 Sample JSON to parse:
-```
+``` json
 {
     "blogs": {
         "blog": [
@@ -37,7 +37,7 @@ Sample JSON to parse:
 ```
 
 Define a Blog class to represent a blog post:
-```
+``` Swift
 class Blog {
     var name : String?
     var id : Int?
@@ -51,7 +51,7 @@ class Blog {
 Actual parsing code. The parse() method accepts object types of NSData, String, NSDictionary or NSArray.
 
 
-```
+``` Swift
 JsonUtilities.parse(json) { p in
     
     var stat = p.string("stat")
@@ -73,13 +73,12 @@ JsonUtilities.parse(json) { p in
         }
     }
 }
-
 ```
 
 
 Custom datatype parsing can be supported by defining a custom method on extension of class JsonUtilities.Parser. The below code snippet define a method url() to parse NSURL object. The method can be called inside a parsing context.
 
-```
+``` Swift
 extension JsonUtilities.Parser {
   func url(key: String) -> NSURL? {
       if let urlString = string(key) {
@@ -98,7 +97,7 @@ JsonUtilities.parse(json) { p in
 ```
 
 We can define a custom method to parse Blog objects:
-```
+``` Swift
 extension JsonUtilities.Parser {
     func blog() -> Blog? {
         let blog = Blog()
@@ -126,10 +125,7 @@ JsonUtilities.parse(TestData.json) { p in
         }
     }
 }
-
 ```
-
-
 
 
 
