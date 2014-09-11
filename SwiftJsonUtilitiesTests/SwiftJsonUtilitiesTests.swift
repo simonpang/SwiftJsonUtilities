@@ -96,7 +96,20 @@ class SwiftJsonUtilitiesTests: XCTestCase {
         XCTAssert(blogList[1].url?.absoluteString == "http://flickrtest1.userland.com/", "Pass")
 
     }
-    
+
+    func testNSDictionaryParsing() {
+        var stat : String?
+        
+        var dict = NSMutableDictionary()
+        dict.setObject("ok", forKey: "stat")
+        
+        JsonUtilities.parse(dict) { p in
+            stat = p.string("stat")
+        }
+        
+        XCTAssert(stat == "ok", "Pass")
+    }
+
     func testNoValues() {
         
         var string : String?
@@ -134,6 +147,17 @@ class SwiftJsonUtilitiesTests: XCTestCase {
         
         let jsonData = TestData.jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         JsonUtilities.parse(jsonData) { p in
+            stat = p.string("stat")
+        }
+        
+        XCTAssert(stat == "ok", "Pass")
+        
+    }
+
+    func testStringParsing() {
+        var stat : String?
+        
+        JsonUtilities.parse(TestData.jsonString) { p in
             stat = p.string("stat")
         }
         

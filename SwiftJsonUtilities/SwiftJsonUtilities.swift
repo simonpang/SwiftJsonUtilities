@@ -105,6 +105,16 @@ class JsonUtilities {
             return
         }
         
+        // Handle String
+        if let string = json as? String {
+            if let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                if let json : AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) {
+                    handler(Parser(json))
+                    return
+                }
+            }
+        }
+        
         // Handle NSData
         if let data = json as? NSData {
             if let json : AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) {
