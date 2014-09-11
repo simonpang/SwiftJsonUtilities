@@ -108,6 +108,11 @@ class JsonUtilities {
     
     
     class func parse(json : AnyObject?, handler : Parser -> Void) {
+
+        // Handle nil
+        if json == nil {
+            return
+        }
         
         // Handle NSData
         if let data = json as? NSData {
