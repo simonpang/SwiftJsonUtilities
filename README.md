@@ -52,27 +52,27 @@ Actual parsing code. The parse() method accepts object types of NSData, String, 
 
 
 ```
-        JsonUtilities.parse(json) { p in
+JsonUtilities.parse(json) { p in
+    
+    var stat = p.string("stat")
+    var title = p.string("title")
+    
+    var blogList = [Blog]()
+    
+    p.dict("blogs") {
+        p.array("blog") {
             
-            var stat = p.string("stat")
-            var title = p.string("title")
-            
-            var blogList = [Blog]()
-            
-            p.dict("blogs") {
-                p.array("blog") {
-                    
-                    let blog           = Blog()
-                    blog.id            = p.integer("id")
-                    blog.name          = p.string("name")
-                    blog.needsPassword = p.bool("needspassword")
-                    blog.url           = p.string("url")
+            let blog           = Blog()
+            blog.id            = p.integer("id")
+            blog.name          = p.string("name")
+            blog.needsPassword = p.bool("needspassword")
+            blog.url           = p.string("url")
 
-                    blogList.append(blog)
-                    
-                }
-            }
+            blogList.append(blog)
+            
         }
+    }
+}
 
 ```
 
